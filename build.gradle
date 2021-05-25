@@ -1,0 +1,37 @@
+plugins {
+
+    id 'java-library'
+     //plugin para trabajar con el framework
+    id 'io.quarkus' version '1.12.0.Final'
+}
+
+repositories {
+    // Use jcenter for resolving dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+ext{
+quarkusversion = '1.12.0.Final'
+}
+
+
+dependencies {
+//----------------------FRAMEWORK QUARKUS-------------
+implementation enforcedPlatform("io.quarkus:quarkus-universe-bom:${quarkusversion}")
+compile group: 'io.quarkus', name: 'quarkus-resteasy'
+//---------------------JDBC-----------------
+//JDBC
+	    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.7.0'
+ //DB
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.8'   
+
+    compile group: 'io.quarkus', name: 'quarkus-resteasy-jsonb', version: '1.6.1.Final'
+	implementation group: 'io.quarkus', name: 'quarkus-resteasy-jackson', version: '1.12.2.Final'
+//	compile group: 'io.quarkus', name: 'quarkus-agroal', version: '1.6.1.Final'
+
+}
+
+task stage(dependsOn: ['quarkusBuild', 'clean'])
+build.mustRunAfter clean
+
+
